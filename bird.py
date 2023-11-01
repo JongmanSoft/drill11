@@ -199,7 +199,7 @@ class Boy:
         pass
 
     def update(self):
-        self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
+        self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 14
         self.x += self.dir * RUN_SPEED_PPS * game_framework.frame_time
         self.x = clamp(25, self.x, 1600 - 25)
         if (self.x > 1500): self.dir = -1
@@ -211,9 +211,16 @@ class Boy:
         pass
 
     def draw(self):
+        action =0;
+        if (self.frame <5): action =2
+        if (self.frame>4 and self.frame <10): action =1
+        if (self.frame> 14):
+            self.frame = 0
+            action =2
+
         if self.dir == -1:
-            self.image.clip_composite_draw(int(self.frame) * 183, 338, 183, 168,
+            self.image.clip_composite_draw(int(self.frame%5) * 183, 168*action, 183, 168,
                                           0, 'h', self.x + 25, self.y - 25, 100, 100)
         else:
-            self.image.clip_composite_draw(int(self.frame) * 183, 338, 183, 168,
+            self.image.clip_composite_draw(int(self.frame%5) * 183, 168*action, 183, 168,
                                           0, '', self.x - 25, self.y - 25, 100, 100)
