@@ -1,3 +1,4 @@
+#2022180029 이세영
 from pico2d import open_canvas, delay, close_canvas
 import game_framework
 
